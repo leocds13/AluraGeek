@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:alura_geek/config/palette.dart';
-import 'package:alura_geek/widgets/squar_button.dart';
+import 'package:alura_geek/config/responsive.dart';
 import 'package:alura_geek/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 
 class ContactUs extends StatelessWidget {
   const ContactUs({Key? key}) : super(key: key);
@@ -12,38 +11,62 @@ class ContactUs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFFEAF2FD),
-      padding: const EdgeInsets.all(16),
-      child: Column(
+      padding: EdgeInsets.symmetric(
+        horizontal: Palette.screenPaddingHorizontal(context),
+        vertical: Responsive.isMobile(context: context) ? 12 : 20,
+      ),
+      child: ResponsiveGridRow(
         children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            child: Column(
+          ResponsiveGridCol(
+            md: 6,
+            child: ResponsiveGridRow(
               children: [
-                Image.asset("assets/images/logo.png"),
-                const SizedBox(height: 10),
-                const _LinkButton(
-                  text: "Quem somos nós",
+                ResponsiveGridCol(
+                  lg: 6,
+                  child: SizedBox(
+                    height: Responsive.isMobile(context: context) ? 44 : 52,
+                    child: Image.asset(
+                      "assets/images/logo.png",
+                      alignment: Responsive.isMobile(context: context)
+                          ? Alignment.center
+                          : Alignment.centerLeft,
+                    ),
+                  ),
                 ),
-                const _LinkButton(
-                  text: "Política de Privacidade",
-                ),
-                const _LinkButton(
-                  text: "Programa fidelidade",
-                ),
-                const _LinkButton(
-                  text: "Nossas lojas",
-                ),
-                const _LinkButton(
-                  text: "Quero ser franqueado",
-                ),
-                const _LinkButton(
-                  text: "Anuncie aqui",
+                ResponsiveGridCol(
+                  lg: 6,
+                  child: Column(
+                    crossAxisAlignment: Responsive.isMobile(context: context)
+                        ? CrossAxisAlignment.center
+                        : CrossAxisAlignment.start,
+                    children: const [
+                      _LinkButton(
+                        text: "Quem somos nós",
+                      ),
+                      _LinkButton(
+                        text: "Política de privacidade",
+                      ),
+                      _LinkButton(
+                        text: "Programa fidelidade",
+                      ),
+                      _LinkButton(
+                        text: "Nossas lojas",
+                      ),
+                      _LinkButton(
+                        text: "Quero ser franqueado",
+                      ),
+                      _LinkButton(
+                        text: "Anuncie aqui",
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-          Container(
-            child: _ContactForm(),
+          ResponsiveGridCol(
+            md: 6,
+            child: const _ContactForm(),
           ),
         ],
       ),
@@ -106,7 +129,7 @@ class _ContactForm extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 10),
-        SquarButton(
+        SquareButton(
           label: "Enviar mensagem",
           color: Palette.primaryBlue,
           onPressed: () {},

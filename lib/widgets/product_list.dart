@@ -1,4 +1,5 @@
 import 'package:alura_geek/config/palette.dart';
+import 'package:alura_geek/config/responsive.dart';
 import 'package:alura_geek/entities/entities.dart';
 import 'package:alura_geek/screens/screens.dart';
 import 'package:alura_geek/widgets/widgets.dart';
@@ -6,24 +7,31 @@ import 'package:flutter/material.dart';
 import 'package:responsive_grid/responsive_grid.dart';
 
 class ProductList extends StatelessWidget {
-  late List<Product> products;
+  final List<Product> products;
   final String category;
   final bool showFullList;
 
-  ProductList({
+  const ProductList({
     Key? key,
-    required List<Product> products,
+    required this.products,
     this.category = 'Todos os produtos',
     this.showFullList = false,
-  }) : super(key: key) {
-    this.products = showFullList ? products : products.getRange(0, 4).toList();
-  }
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final products = showFullList
+        ? this.products
+        : Responsive.isDescktop(context: context)
+            ? this.products.getRange(0, 6).toList()
+            : this.products.getRange(0, 4).toList();
+
     return Container(
       color: Colors.white70,
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(
+        horizontal: Palette.screenPaddingHorizontal(context),
+        vertical: Palette.screenPaddingVertical(context),
+      ),
       child: Column(
         children: [
           _Topo(category: category),
@@ -69,14 +77,14 @@ class _Topo extends StatelessWidget {
       children: [
         Text(
           category,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: Palette.primaryFontFamily,
             fontWeight: FontWeight.w700,
-            fontSize: 22,
+            fontSize: !Responsive.isDescktop(context: context) ? 22 : 32,
           ),
         ),
         category == 'Todos os produtos'
-            ? SquarButton(
+            ? SquareButton(
                 label: "Adicionar produto",
                 color: Palette.primaryBlue,
                 onPressed: () {},

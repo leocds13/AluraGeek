@@ -1,3 +1,5 @@
+import 'package:alura_geek/config/palette.dart';
+import 'package:alura_geek/config/responsive.dart';
 import 'package:alura_geek/data/mock_data.dart';
 import 'package:alura_geek/entities/entities.dart';
 import 'package:alura_geek/widgets/widgets.dart';
@@ -17,19 +19,23 @@ class ProductScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            floating: true,
-            title: CustomAppBar(),
-          ),
+          CustomAppBar.sliverAppBar(),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 0,
-                horizontal: 0,
+              padding: EdgeInsets.fromLTRB(
+                Responsive.isMobile(context: context)
+                    ? 0
+                    : Palette.screenPaddingHorizontal(context),
+                Responsive.isMobile(context: context)
+                    ? 0
+                    : Palette.screenPaddingVertical(context),
+                Responsive.isMobile(context: context)
+                    ? 0
+                    : Palette.screenPaddingHorizontal(context),
+                0
               ),
               child: ResponsiveGridRow(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ResponsiveGridCol(
                     xs: 12,
@@ -37,6 +43,12 @@ class ProductScreen extends StatelessWidget {
                     lg: 6,
                     child: Image(
                       image: product.image,
+                      fit: BoxFit.cover,
+                      height: Responsive.isMobile(context: context)
+                          ? 232
+                          : Responsive.isTablet(context: context)
+                              ? null
+                              : 403,
                     ),
                   ),
                   ResponsiveGridCol(
@@ -77,22 +89,22 @@ class ProductScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ResponsiveGridCol(
-                    child: ProductList(
-                      products: productsList,
-                      category: "Produtos similares",
-                      showFullList: false,
-                    ),
-                  ),
-                  ResponsiveGridCol(
-                    child: const ContactUs(),
-                  ),
-                  ResponsiveGridCol(
-                    child: const FootNote(),
-                  ),
                 ],
               ),
             ),
+          ),
+          SliverToBoxAdapter(
+            child: ProductList(
+              products: productsList,
+              category: "Produtos similares",
+              showFullList: false,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: ContactUs(),
+          ),
+          const SliverToBoxAdapter(
+            child: FootNote(),
           ),
         ],
       ),

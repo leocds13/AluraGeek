@@ -7,20 +7,15 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            floating: true,
-            title: CustomAppBar(),
-          ),
-          SliverToBoxAdapter(child: _LoginForm()),
-          SliverToBoxAdapter(
+          CustomAppBar.sliverAppBar(),
+          const SliverToBoxAdapter(child: _LoginForm()),
+          const SliverToBoxAdapter(
             child: ContactUs(),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: FootNote(),
           ),
         ],
@@ -62,7 +57,7 @@ class _LoginForm extends StatelessWidget {
               labelText: "Escreva seu email",
             ),
             const SizedBox(height: 20),
-            SquarButton(
+            SquareButton(
               label: "Entrar",
               color: Palette.primaryBlue,
               onPressed: () {},

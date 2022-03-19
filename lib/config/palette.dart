@@ -1,3 +1,4 @@
+import 'package:alura_geek/config/responsive.dart';
 import 'package:flutter/material.dart';
 
 class Palette {
@@ -12,4 +13,18 @@ class Palette {
     end: Alignment.bottomCenter,
     colors: [Colors.transparent, Colors.black],
   );
+
+  static double screenPaddingHorizontal(BuildContext context) =>
+      Responsive.isMobile(context: context)
+          ? 20
+          : Responsive.isTablet(context: context)
+              ? 32
+              : 152;
+
+  static double screenPaddingVertical(BuildContext context) =>
+      Responsive.isMobile(context: context)
+          ? 20
+          : Responsive.isTablet(context: context)
+              ? 32
+              : 64;
 }

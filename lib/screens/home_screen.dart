@@ -16,11 +16,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
-            backgroundColor: Colors.white,
-            floating: true,
-            title: CustomAppBar(disableLogoGesture: true),
-          ),
+          CustomAppBar.sliverAppBar(disableLogoGesture: true),
           const SliverToBoxAdapter(
             child: CustomBanner(
               title: "Dezembro Promocional",
@@ -31,7 +27,7 @@ class HomeScreen extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (cntx, index) {
+              (context, index) {
                 return ProductList(
                   products: productsContainers[index][1],
                   category: productsContainers[index][0],

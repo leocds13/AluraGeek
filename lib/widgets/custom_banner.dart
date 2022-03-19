@@ -1,4 +1,5 @@
 import 'package:alura_geek/config/palette.dart';
+import 'package:alura_geek/config/responsive.dart';
 import 'package:alura_geek/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -20,9 +21,8 @@ class CustomBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.orange,
-      height: 192,
+    return SizedBox(
+      height: Responsive.isMobile(context: context) ? 192 : 352,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -33,33 +33,40 @@ class CustomBanner extends StatelessWidget {
             decoration: const BoxDecoration(gradient: Palette.bannerGradient),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: Palette.screenPaddingHorizontal(context),
+              vertical: Responsive.isMobile(context: context) ? 16 : 32,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 26,
-                    fontFamily: Palette.primaryFontFamily
+                    fontWeight: FontWeight.w700,
+                    fontSize: Responsive.isMobile(context: context) ? 26 : 52,
+                    fontFamily: Palette.primaryFontFamily,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 8),
                 Text(
                   subTitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: Palette.primaryFontFamily
+                    fontWeight: Responsive.isMobile(context: context)
+                        ? FontWeight.w600
+                        : FontWeight.w700,
+                    fontSize: Responsive.isMobile(context: context) ? 16 : 22,
+                    fontFamily: Palette.primaryFontFamily,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 8),
                 buttonLabel != ''
-                    ? SquarButton(
+                    ? SquareButton(
                         label: buttonLabel,
                         color: Palette.primaryBlue,
                         onPressed: () {},
